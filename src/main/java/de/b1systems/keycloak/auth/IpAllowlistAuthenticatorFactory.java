@@ -1,5 +1,7 @@
 package de.b1systems.keycloak.auth;
 
+import java.util.List;
+
 import org.keycloak.Config;
 import org.keycloak.authentication.Authenticator;
 import org.keycloak.authentication.AuthenticatorFactory;
@@ -8,12 +10,10 @@ import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.KeycloakSessionFactory;
 import org.keycloak.provider.ProviderConfigProperty;
 
-import java.util.List;
-
 public class IpAllowlistAuthenticatorFactory implements AuthenticatorFactory {
     public static final String PROVIDER_ID = "custom-auth-spi";
     private static final IpAllowlistAuthenticator SINGLETON = new IpAllowlistAuthenticator();
-    private static AuthenticationExecutionModel.Requirement[] REQUIREMENT_CHOICES = {
+    private static final AuthenticationExecutionModel.Requirement[] CHOICES = {
             AuthenticationExecutionModel.Requirement.REQUIRED,
             AuthenticationExecutionModel.Requirement.ALTERNATIVE,
             AuthenticationExecutionModel.Requirement.DISABLED
@@ -36,7 +36,7 @@ public class IpAllowlistAuthenticatorFactory implements AuthenticatorFactory {
 
     @Override
     public AuthenticationExecutionModel.Requirement[] getRequirementChoices() {
-        return REQUIREMENT_CHOICES;
+        return CHOICES;
     }
 
     @Override

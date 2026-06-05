@@ -1,5 +1,8 @@
 package de.b1systems.keycloak.auth;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.jboss.logging.Logger;
 import org.keycloak.authentication.AuthenticationFlowContext;
 import org.keycloak.authentication.AuthenticationFlowError;
@@ -8,9 +11,6 @@ import org.keycloak.models.AuthenticatorConfigModel;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
 import org.keycloak.models.UserModel;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class IpAllowlistAuthenticator implements Authenticator {
     private static final Logger LOG = Logger.getLogger(IpAllowlistAuthenticator.class);
@@ -76,7 +76,7 @@ public class IpAllowlistAuthenticator implements Authenticator {
             long mask = -(1L << (32 - prefixLength));
 
             return (ipLong & mask) == (networkLong & mask);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             LOG.warnf("Invalid CIDR pattern: %s", cidr);
 
             return false;
@@ -84,7 +84,7 @@ public class IpAllowlistAuthenticator implements Authenticator {
     }
 
     private long ipToLong(String ip) {
-        String[] octets = ip.split(".");
+        String[] octets = ip.split("\\.");
         long result = 0;
 
         for (int i = 0; i < 4; i++) {
