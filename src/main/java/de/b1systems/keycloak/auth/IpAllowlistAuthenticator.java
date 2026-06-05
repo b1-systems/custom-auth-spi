@@ -53,6 +53,7 @@ public class IpAllowlistAuthenticator implements Authenticator {
         }
 
         String allowedIpsConfig = config.getConfig().get("allowedIps");
+
         if (allowedIpsConfig == null || allowedIpsConfig.isEmpty()) {
             context.success();
             return;
@@ -60,15 +61,18 @@ public class IpAllowlistAuthenticator implements Authenticator {
 
         List<String> allowedIps = Arrays.asList(allowedIpsConfig.split(","));
 
-        boolean allowed = allowedIps.stream()
-                .map(String::trim)
-                .anyMatch(pattern -> matchesIp(clientIp, pattern));
+        boolean allowed = allowedIps
+            .stream()
+            .map(String::trim)
+            .anyMatch(pattern -> matchesIp(clientIp, pattern));
 
         if (allowed) {
             LOG.debugf("IP %s is in the allowlist", clientIp);
+
             context.success();
         } else {
             LOG.warnf("IP %s is NOT in the allowlist, blocking access", clientIp);
+
             context.failure(AuthenticationFlowError.ACCESS_DENIED);
         }
     }

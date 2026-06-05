@@ -29,9 +29,9 @@ public class IpAllowlistAuthenticatorFactory implements AuthenticatorFactory {
     public static final String PROVIDER_ID = "custom-auth-spi";
     private static final IpAllowlistAuthenticator SINGLETON = new IpAllowlistAuthenticator();
     private static final AuthenticationExecutionModel.Requirement[] CHOICES = {
-            AuthenticationExecutionModel.Requirement.REQUIRED,
-            AuthenticationExecutionModel.Requirement.ALTERNATIVE,
-            AuthenticationExecutionModel.Requirement.DISABLED
+        AuthenticationExecutionModel.Requirement.REQUIRED,
+        AuthenticationExecutionModel.Requirement.ALTERNATIVE,
+        AuthenticationExecutionModel.Requirement.DISABLED
     };
 
     @Override
@@ -67,14 +67,14 @@ public class IpAllowlistAuthenticatorFactory implements AuthenticatorFactory {
     @Override
     public List<ProviderConfigProperty> getConfigProperties() {
         return List.of(
-                new ProviderConfigProperty(
-                        "allowedIps",
-                        "Allowed IPs",
-                        "Comma-separated list of allowed IP addresses or CIDR ranges "
-                        + "(e.g., 10.0.0.0/8, 192.168.1.100)",
-                        ProviderConfigProperty.STRING_TYPE,
-                        ""
-                )
+            new ProviderConfigProperty(
+                "allowedIps",
+                "Allowed IPs",
+                "Comma-separated list of allowed IP addresses or CIDR ranges "
+                + "(e.g., 10.0.0.0/8, 192.168.1.100)",
+                ProviderConfigProperty.STRING_TYPE,
+                ""
+            )
         );
     }
 
