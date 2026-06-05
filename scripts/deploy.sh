@@ -20,7 +20,7 @@
 ##
 # Configuration
 
-artifact_id="custom-jpa-user-storage"
+artifact_id="custom-auth-spi"
 
 name=$(basename "$(readlink -f "$0")")
 dir=$(dirname "$(readlink -f "$0")")
