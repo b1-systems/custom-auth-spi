@@ -28,8 +28,6 @@ import org.keycloak.models.RealmModel;
 import org.keycloak.models.UserModel;
 
 public class IpAllowlistAuthenticator implements Authenticator {
-    private static final Logger LOG = Logger.getLogger(IpAllowlistAuthenticator.class);
-
     @Override
     public void authenticate(AuthenticationFlowContext context) {
         String remoteAddress = context.getConnection().getRemoteAddr();
@@ -42,12 +40,9 @@ public class IpAllowlistAuthenticator implements Authenticator {
                 ? forwardedFor.split(",")[0].trim()
                 : remoteAddress;
 
-        LOG.debugf("Checking IP allowlist for IP: %s", clientIp);
-
         AuthenticatorConfigModel config = context.getAuthenticatorConfig();
 
         if (config == null || config.getConfig() == null) {
-            LOG.warn("No IP allowlist configured, allowing access");
             context.success();
             return;
         }
@@ -67,12 +62,8 @@ public class IpAllowlistAuthenticator implements Authenticator {
             .anyMatch(pattern -> matchesIp(clientIp, pattern));
 
         if (allowed) {
-            LOG.debugf("IP %s is in the allowlist", clientIp);
-
             context.success();
         } else {
-            LOG.warnf("IP %s is NOT in the allowlist, blocking access", clientIp);
-
             context.failure(AuthenticationFlowError.ACCESS_DENIED);
         }
     }
@@ -96,8 +87,6 @@ public class IpAllowlistAuthenticator implements Authenticator {
 
             return (ipLong & mask) == (networkLong & mask);
         } catch (NumberFormatException e) {
-            LOG.warnf("Invalid CIDR pattern: %s", cidr);
-
             return false;
         }
     }

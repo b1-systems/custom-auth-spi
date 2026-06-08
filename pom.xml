@@ -36,8 +36,6 @@
 
     <properties>
         <version.compiler.maven.plugin>3.5.1</version.compiler.maven.plugin>
-        <version.hibernate.javax.persistence>1.0.0.Final</version.hibernate.javax.persistence>
-        <jboss.logging.version>3.6.1.Final</jboss.logging.version>
         <keycloak.version>26.6.2</keycloak.version>
         <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -67,12 +65,6 @@
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-services</artifactId>
             <version>${keycloak.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.logging</groupId>
-            <artifactId>jboss-logging</artifactId>
-            <version>${jboss.logging.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
